@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sportcenter.model.Utente;
 import com.sportcenter.repository.UtenteRepository;
-
+//asadasdsa
 @RequestMapping("/api/utente")
 @RestController
 
