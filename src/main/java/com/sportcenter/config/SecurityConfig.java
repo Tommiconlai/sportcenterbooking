@@ -24,6 +24,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/campi/**").permitAll()
                         .requestMatchers("/api/prenotazioni/**").permitAll()
                         .requestMatchers("/api/pagamenti/**").permitAll()
+                        .requestMatchers("/api/ruolo").permitAll()
+                        .requestMatchers("/api/auth/register").permitAll()
 
                                          .anyRequest().permitAll())
                 .httpBasic(withDefaults());
