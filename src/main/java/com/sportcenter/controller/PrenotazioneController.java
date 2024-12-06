@@ -60,12 +60,11 @@ public class PrenotazioneController {
         PrenotazioneResponse response = new PrenotazioneResponse();
 
         response.setId(prenotazione.getId());
-        response.setUtenteId(prenotazione.getUtente().getUsername());
+        response.setUtenteId(prenotazione.getUtente().getId());
         response.setCampoSportivoId(prenotazione.getCampoSportivo().getId());
         response.setStato(prenotazione.getStato());
         response.setDataOra(prenotazione.getDataOra());
 
         return response;
-
     }
 }

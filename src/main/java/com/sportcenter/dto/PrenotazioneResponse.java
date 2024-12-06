@@ -46,7 +46,7 @@ public class PrenotazioneResponse {
         this.stato = stato;
     }
 
-    public void setUtenteId(String utenteId) {
+    public void setUtenteId(Long utenteId) {
         this.utenteId = utenteId;
     }
     
