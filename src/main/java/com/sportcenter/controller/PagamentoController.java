@@ -13,46 +13,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sportcenter.model.Pagamento;
 import com.sportcenter.repository.PagamentoRepository;
-import com.sportcenter.service.PagamentoService;
 
-
-
-
-@RequestMapping("/api/pagamento")
+@RequestMapping("/api/pagamenti")
 @RestController
-public class PagamentoController{
-    @Autowired
-    private PagamentoRepository pagamentoRepository;
-
-    @Autowired
-    private PagamentoService pagamentoService;
-
-    @GetMapping()
-    public List<Pagamento> getAllPagamento() {
-        return pagamentoRepository.findAll();
-    }
-
-    @PostMapping()
-    public Pagamento createPagamento(@RequestBody Pagamento pagamento) {
-        return pagamentoRepository.save(pagamento);
-    }
+public class PagamentoController {
     
+    @Autowired
+    private PagamentoRepository repository;
 
-    @DeleteMapping ("/{id}")
-    public Pagamento deletePagamento(@PathVariable long id){
-        pagamentoRepository.deleteById(id);
-                return null;
-    }    
+    @GetMapping
+    public List<Pagamento> findAll()  {
+        return repository.findAll();
+    }
 
     @GetMapping("/{id}")
-    public Pagamento getPagamentoById(@PathVariable Long id){
-        return pagamentoRepository.findById(id).get();
+    public Pagamento find(@PathVariable Long id)  {
+        return repository.findById(id).orElse(null);
     }
 
-    /*@PostMapping("/{utenteId}/songs")
-    public ResponseEntity<Playlist> addSongToPlaylist(@PathVariable Long playlistId, @RequestBody AddSongRequest request) {
-        Playlist updatePlaylist = playlistService.addSongToPlaylist(playlistId, request.getSongId());
-        return ResponseEntity.ok(updatePlaylist);
-    }*/
-}
+    @PostMapping
+    public Pagamento create(@RequestBody Pagamento pagamento)  {
+        return repository.save(pagamento);
+    }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id)  {
+        repository.deleteById(id);
+    }
+
+}

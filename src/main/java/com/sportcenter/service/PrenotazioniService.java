@@ -11,35 +11,33 @@ import com.sportcenter.repository.CampoSportivoRepository;
 import com.sportcenter.repository.PrenotazioneRepository;
 import com.sportcenter.repository.UtenteRepository;
 
-
-
-
-
 @Service
-public class PrenotazioneService {
-
+public class PrenotazioniService {
+    
     @Autowired
     private CampoSportivoRepository campoSportivoRepository;
-
     @Autowired
     private UtenteRepository utenteRepository;
-
     @Autowired
     private PrenotazioneRepository prenotazioneRepository;
 
-    public Prenotazione create(PrenotazioneRequest request){
+    public Prenotazione create(PrenotazioneRequest request)  {
+        // logica necessaria per
+        // 1. recuperare l'utente dal repository UtenteRepository
+        Utente utente = utenteRepository.findById(request.getUtenteId()).get();
+        // 2. recuerare il campoSportvio dal repository CampoSportivoRepository
+        CampoSportivo campoSportivo = campoSportivoRepository.findById(request.getCampoSportivoId()).get();
+        // 3. settare i valori in un oggetto Prenotazione (da costruire)
         Prenotazione prenotazioneToSave = new Prenotazione();
+
         prenotazioneToSave.setDataOra(request.getDataOra());
         prenotazioneToSave.setStato(request.getStato());
-
-        Utente utente = utenteRepository.findById(request.getUtenteId()).get();
-
         prenotazioneToSave.setUtente(utente);
-
-        CampoSportivo campoSportivo = campoSportivoRepository.findById(request.getCampoSportivoId()).get();
-        
         prenotazioneToSave.setCampoSportivo(campoSportivo);
+        // 4. salvare
+        prenotazioneToSave = prenotazioneRepository.save(prenotazioneToSave);
 
-        return prenotazioneRepository.save(prenotazioneToSave);
-    }
+        return prenotazioneToSave;
+    }  
+    
 }

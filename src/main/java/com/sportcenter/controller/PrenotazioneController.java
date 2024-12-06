@@ -12,47 +12,60 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sportcenter.dto.PrenotazioneRequest;
+import com.sportcenter.dto.PrenotazioneResponse;
 import com.sportcenter.model.Prenotazione;
 import com.sportcenter.repository.PrenotazioneRepository;
-import com.sportcenter.service.PrenotazioneService;
+import com.sportcenter.service.PrenotazioniService;
 
-
-
-
-@RequestMapping("/api/prenotazione")
+@RequestMapping("/api/prenotazioni")
 @RestController
-public class PrenotazioneController{
-    @Autowired
-    private PrenotazioneRepository prenotazioneRepository;
+public class PrenotazioneController {
 
-    @Autowired
-    private PrenotazioneService prenotazioneService;
-
-    @GetMapping()
-    public List<Prenotazione> getAllPrenotazione() {
-        return prenotazioneRepository.findAll();
-    }
-
-    @PostMapping()
-    public Prenotazione create(@RequestBody PrenotazioneRequest prenotazione) {
-        return prenotazioneService.create(prenotazione);
-    }
     
+    @Autowired
+    private PrenotazioneRepository repository;
+    @Autowired
+    private PrenotazioniService prenotazioneService;
 
-    @DeleteMapping ("/{id}")
-    public Prenotazione deletePrenotazione(@PathVariable long id){
-        prenotazioneRepository.deleteById(id);
-                return null;
-    }    
+    @GetMapping
+    public List<Prenotazione> findAll()  {
+        return repository.findAll();
+    }
 
     @GetMapping("/{id}")
-    public Prenotazione getPrenotazioneById(@PathVariable Long id){
-        return prenotazioneRepository.findById(id).get();
+    public Prenotazione find(@PathVariable Long id)  {
+        return repository.findById(id).orElse(null);
     }
 
-    /*@PostMapping("/{utenteId}/songs")
-    public ResponseEntity<Playlist> addSongToPlaylist(@PathVariable Long playlistId, @RequestBody AddSongRequest request) {
-        Playlist updatePlaylist = playlistService.addSongToPlaylist(playlistId, request.getSongId());
-        return ResponseEntity.ok(updatePlaylist);
-    }*/
+    @PostMapping
+    public PrenotazioneResponse create(@RequestBody PrenotazioneRequest prenotazioneRequest)  {
+        // logica necessaria per
+        // 1. recuperare l'utente dal repository UtenteRepository
+        Prenotazione prenotazione = prenotazioneService.create(prenotazioneRequest);        
+        // 2. recuerare il campoSportvio dal repository CampoSportivoRepository
+        PrenotazioneResponse response = mapToResponse(prenotazione);
+        // 3. settare i valori in un oggetto Prenotazione
+        // 4. salvare
+
+        //return null;
+        return response;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id)  {
+        repository.deleteById(id);
+    }
+
+    private PrenotazioneResponse mapToResponse(Prenotazione prenotazione){
+        PrenotazioneResponse response = new PrenotazioneResponse();
+
+        response.setId(prenotazione.getId());
+        response.setUtenteId(prenotazione.getUtente().getUsername());
+        response.setCampoSportivoId(prenotazione.getCampoSportivo().getId());
+        response.setStato(prenotazione.getStato());
+        response.setDataOra(prenotazione.getDataOra());
+
+        return response;
+
+    }
 }

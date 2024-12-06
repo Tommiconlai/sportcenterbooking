@@ -28,7 +28,5 @@ public class Ruolo {
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
-
-    //ciaaaa
     
 }

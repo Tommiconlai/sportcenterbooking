@@ -1,4 +1,3 @@
-
 package com.sportcenter.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -22,10 +21,11 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/campo/**").permitAll()
-                        .requestMatchers("/api/prenotazione/**").permitAll()
-                        .requestMatchers("/api/pagamento/**").permitAll()
-                        .anyRequest().permitAll())
+                        .requestMatchers("/api/campi/**").permitAll()
+                        .requestMatchers("/api/prenotazioni/**").permitAll()
+                        .requestMatchers("/api/pagamenti/**").permitAll()
+
+                                         .anyRequest().permitAll())
                 .httpBasic(withDefaults());
         return http.build();
     }
