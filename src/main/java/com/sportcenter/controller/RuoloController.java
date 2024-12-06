@@ -11,34 +11,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.sportcenter.model.Ruolo;
+
 import com.sportcenter.repository.RuoloRepository;
+
+
+
+
 
 @RequestMapping("/api/ruolo")
 @RestController
-
-public class RuoloController {
-
+public class RuoloController{
     @Autowired
     private RuoloRepository ruoloRepository;
 
-    @GetMapping
-    private List<Ruolo> getAllRuolo(){
+   
+
+    @GetMapping()
+    public List<Ruolo> getAllRuolo() {
         return ruoloRepository.findAll();
     }
 
-    @PostMapping
-    public Ruolo addRuolo(@RequestBody Ruolo add){
-        return ruoloRepository.save(add);
+    @PostMapping()
+    public Ruolo createRuolo(@RequestBody Ruolo ruolo) {
+        return ruoloRepository.save(ruolo);
     }
+    
 
-    @DeleteMapping("/{id}")
-    public void removeRuolo(@PathVariable Long id){
+    @DeleteMapping ("/{id}")
+    public Ruolo deleteRuolo(@PathVariable long id){
         ruoloRepository.deleteById(id);
-    }
+                return null;
+    }    
 
     @GetMapping("/{id}")
-    public Ruolo getRuoloId(@PathVariable Long id){
+    public Ruolo getRuoloById(@PathVariable Long id){
         return ruoloRepository.findById(id).get();
-    }    
+    }
+
+    
 }
+

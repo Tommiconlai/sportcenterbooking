@@ -11,48 +11,56 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Pagamento {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    private String pagamento;
-    private LocalDateTime dataOra;
     private double importo;
+    private LocalDateTime dataOra;
+    private String metodo;
 
     @OneToOne
-    @JoinColumn(name = "prenotazione_ID")
+    @JoinColumn(name = "Prenotazione_id")
     private Prenotazione prenotazione;
 
     public Long getId() {
         return id;
     }
 
-    public String getPagamento() {
-        return pagamento;
-    }
-
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setPagamento(String pagamento) {
-        this.pagamento = pagamento;
-    }
-
-    public LocalDateTime getDataOra() {
-        return dataOra;
     }
 
     public double getImporto() {
         return importo;
     }
 
+    public void setImporto(double importo) {
+        this.importo = importo;
+    }
+
+    public LocalDateTime getDataOra() {
+        return dataOra;
+    }
+
     public void setDataOra(LocalDateTime dataOra) {
         this.dataOra = dataOra;
     }
 
-    public void setImporto(double importo) {
-        this.importo = importo;
+    public String getMetodo() {
+        return metodo;
     }
-        
+
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
+    }
+
+    public Prenotazione getPrenotazione() {
+        return prenotazione;
+    }
+
+    public void setPrenotazione(Prenotazione prenotazione) {
+        this.prenotazione = prenotazione;
+    }
 }

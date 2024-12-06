@@ -22,9 +22,9 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/campi/**").hasRole("ADMIN")
-                        .requestMatchers("/api/prenotazioni/**").permitAll()
-                        .requestMatchers("/api/pagamenti/**").permitAll()
+                        .requestMatchers("/api/campo/**").permitAll()
+                        .requestMatchers("/api/prenotazione/**").permitAll()
+                        .requestMatchers("/api/pagamento/**").permitAll()
                         .anyRequest().permitAll())
                 .httpBasic(withDefaults());
         return http.build();

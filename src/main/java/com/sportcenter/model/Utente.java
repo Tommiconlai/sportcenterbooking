@@ -1,7 +1,7 @@
 
 package com.sportcenter.model;
 
-import java.util.List;
+
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class Utente {
@@ -26,18 +26,21 @@ public class Utente {
 
     private String password;
 
+   
+    
+
     @ManyToMany
     @JoinTable(
         name = "user_roles", // Nome della tabella di join
         joinColumns = @JoinColumn(name = "user_id"), // Colonna di join per User
         inverseJoinColumns = @JoinColumn(name = "role_id") // Colonna di join per Role
     )
-    private Set<Ruolo> ruoli;
-
-    @OneToMany(mappedBy = "utente")
-    private List<Prenotazione> prenotazione;
+    private Set<Ruolo> ruolo;
 
     // Getter e Setter
+
+    
+
     public Long getId() {
         return id;
     }
@@ -70,12 +73,12 @@ public class Utente {
         this.password = password;
     }
 
-    public Set<Ruolo> getRuoli() {
-        return ruoli;
+    public Set<Ruolo> getRuolo() {
+        return ruolo;
     }
 
-    public void setRuoli(Set<Ruolo> ruoli) {
-        this.ruoli = ruoli;
+    public void setRuolo(Set<Ruolo> ruolo) {
+        this.ruolo = ruolo;
     }
 
 }
