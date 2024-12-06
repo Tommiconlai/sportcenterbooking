@@ -23,9 +23,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/campi/**").hasRole("ADMIN")
-                        .requestMatchers("/api/prenotazioni/**").authenticated()
-                        .requestMatchers("/api/pagamenti/**").authenticated()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/prenotazioni/**").permitAll()
+                        .requestMatchers("/api/pagamenti/**").permitAll()
+                        .anyRequest().permitAll())
                 .httpBasic(withDefaults());
         return http.build();
     }
